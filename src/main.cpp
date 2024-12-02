@@ -7,14 +7,44 @@
 
 
 #include "karel.h"
-
+bool shouldTurnRight;
 
 //==============================================================================
 /// Программа для робота Карела
 ///
 void KarelProgram() {
 /// @todo Добавить программу для Карела
+while (true) {
+    while (BeepersPresent()) {
+        PickBeeper();
+    }
 
+    if (FrontIsClear()) {
+        Move();
+    } else if (!shouldTurnRight) {
+        TurnLeft();
+        if (FrontIsClear()) {
+            Move();
+        } else {
+            return;
+        }
+        TurnLeft();
+        shouldTurnRight = true;
+    } else {
+        TurnLeft();
+        TurnLeft();
+        TurnLeft();
+        if (FrontIsClear()) {
+            Move();
+        } else {
+            return;
+        }
+        TurnLeft();
+        TurnLeft();
+        TurnLeft();
+        shouldTurnRight = false;
+    }
+}
 }
 
 
@@ -22,7 +52,7 @@ void KarelProgram() {
 /// Стартовая функция
 ///
 int main() {
-    LoadWorld("worlds/collect_newspaper.w");
+    LoadWorld("worlds/CB_01.w");
     KarelProgram();
     Finish();
     return 0;
