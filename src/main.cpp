@@ -9,6 +9,12 @@
 #include "karel.h"
 bool shouldTurnRight;
 
+void turnRight() {
+    TurnLeft();
+    TurnLeft();
+    TurnLeft();
+}
+
 //==============================================================================
 /// Программа для робота Карела
 ///
@@ -21,28 +27,28 @@ while (true) {
 
     if (FrontIsClear()) {
         Move();
-    } else if (!shouldTurnRight) {
-        TurnLeft();
+    } else if (shouldTurnRight) {
+        turnRight();
+        
         if (FrontIsClear()) {
             Move();
         } else {
             return;
         }
-        TurnLeft();
-        shouldTurnRight = true;
+
+        turnRight();
+        shouldTurnRight = false;
     } else {
         TurnLeft();
-        TurnLeft();
-        TurnLeft();
+
         if (FrontIsClear()) {
             Move();
         } else {
             return;
         }
+
         TurnLeft();
-        TurnLeft();
-        TurnLeft();
-        shouldTurnRight = false;
+        shouldTurnRight = true;
     }
 }
 }
