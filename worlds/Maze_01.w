@@ -23,5 +23,6 @@ Wall: (4, 2) south
 Wall: (5, 2) south
 Wall: (6, 4) south
 
+Beeper: (7,5) 1
 Karel: (1, 1) east
 Speed: 1.50

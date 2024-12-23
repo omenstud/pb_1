@@ -5,25 +5,48 @@
 ///
 //==============================================================================
 
-
 #include "karel.h"
 
+void turnRight() {
+  TurnLeft();
+  TurnLeft();
+  TurnLeft();
+}
+
+void goToFinish() {
+  if (BeepersPresent()) {
+    return;
+  }
+
+  TurnLeft();
+  if (FrontIsClear()) {
+    Move();
+  } else {
+    turnRight();
+    if (FrontIsClear()) {
+      Move();
+    } else {
+      turnRight();
+    }
+  }
+
+  goToFinish();
+}
 
 //==============================================================================
 /// Программа для робота Карела
 ///
 void KarelProgram() {
-/// @todo Добавить программу для Карела
-
+  /// @todo Добавить программу для Карела
+  goToFinish();
 }
-
 
 //==============================================================================
 /// Стартовая функция
 ///
 int main() {
-    LoadWorld("worlds/.w");
-    KarelProgram();
-    Finish();
-    return 0;
+  LoadWorld("worlds/Maze_01.w");
+  KarelProgram();
+  Finish();
+  return 0;
 }
